@@ -142,4 +142,4 @@ opentui-doom/
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
+Contributions are welcome! Please submit pull requests to the `develop` branch.
