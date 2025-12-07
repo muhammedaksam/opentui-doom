@@ -13,6 +13,7 @@
     "doom/doomgeneric_opentui.c",
     "doom/doom_js_sound_bridge.c",
     "doom/i_sound.c",
+    "doom/s_sound.c",
     "sound",
     "scripts"
   ],

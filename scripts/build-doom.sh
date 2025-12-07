@@ -34,10 +34,11 @@ fi
 # Create build directory
 mkdir -p "$BUILD_DIR"
 
-# Copy our platform file, sound bridge, and custom i_sound.c
+# Copy our platform file, sound bridge, and custom sound files
 cp "$DOOM_DIR/doomgeneric_opentui.c" "$DOOM_DIR/doomgeneric/doomgeneric/"
 cp "$DOOM_DIR/doom_js_sound_bridge.c" "$DOOM_DIR/doomgeneric/doomgeneric/"
 cp "$DOOM_DIR/i_sound.c" "$DOOM_DIR/doomgeneric/doomgeneric/"
+cp "$DOOM_DIR/s_sound.c" "$DOOM_DIR/doomgeneric/doomgeneric/"
 
 echo "Compiling DOOM to WebAssembly..."
 cd "$DOOM_DIR/doomgeneric/doomgeneric"
