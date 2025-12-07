@@ -17,6 +17,7 @@ import {
 } from "@opentui/core";
 import { DoomEngine, DOOM_WIDTH, DOOM_HEIGHT } from "./doom-engine";
 import { createDoomInputHandler, getControlsHelp } from "./doom-input";
+import { shutdownAudio } from "./doom-audio";
 import { parseArgs } from "util";
 
 // Parse command line arguments
@@ -53,9 +54,24 @@ ${getControlsHelp()}
 
 // Initialize renderer
 const renderer = await createCliRenderer({
-  exitOnCtrlC: true,
+  exitOnCtrlC: false, // We handle exit manually to cleanup audio
   targetFps: 35, // DOOM's native framerate
 });
+
+// Handle graceful shutdown
+const cleanup = (signal?: string) => {
+  shutdownAudio();
+  try {
+    renderer.stop();
+  } catch (e) {
+    // Ignore error if renderer already stopped
+  }
+  process.exit(0);
+};
+
+process.on("SIGINT", () => cleanup("SIGINT"));
+process.on("SIGTERM", () => cleanup("SIGTERM"));
+process.on("exit", () => shutdownAudio());
 
 renderer.start();
 
@@ -117,7 +133,10 @@ async function initDoom() {
     renderer.root.add(controlsText);
 
     // Set up input handler
-    const inputHandler = createDoomInputHandler(doomEngine);
+    const inputHandler = createDoomInputHandler({
+      engine: doomEngine,
+      onExit: cleanup,
+    });
     renderer.keyInput.on("keypress", inputHandler);
 
     // Start game loop

@@ -34,8 +34,9 @@ fi
 # Create build directory
 mkdir -p "$BUILD_DIR"
 
-# Copy our platform file
+# Copy our platform file and sound bridge
 cp "$DOOM_DIR/doomgeneric_opentui.c" "$DOOM_DIR/doomgeneric/doomgeneric/"
+cp "$DOOM_DIR/doom_js_sound_bridge.c" "$DOOM_DIR/doomgeneric/doomgeneric/"
 
 echo "Compiling DOOM to WebAssembly..."
 cd "$DOOM_DIR/doomgeneric/doomgeneric"
@@ -56,6 +57,7 @@ emcc -O2 \
     -s NO_EXIT_RUNTIME=1 \
     -DDOOMGENERIC_RESX=1280 \
     -DDOOMGENERIC_RESY=800 \
+    -DFEATURE_SOUND \
     -I. \
     am_map.c \
     d_event.c \
@@ -139,6 +141,7 @@ emcc -O2 \
     wi_stuff.c \
     z_zone.c \
     dummy.c \
+    doom_js_sound_bridge.c \
     -o "$BUILD_DIR/doom.js"
 
 echo "Build complete!"
