@@ -44,6 +44,7 @@ cd "$DOOM_DIR/doomgeneric/doomgeneric"
 # Compile with Emscripten
 emcc -O2 \
     -s WASM=1 \
+    -s USE_SDL=2 \
     -s EXPORTED_FUNCTIONS="['_doomgeneric_Create','_doomgeneric_Tick','_DG_GetFrameBuffer','_DG_PushKeyEvent','_malloc','_free']" \
     -s EXPORTED_RUNTIME_METHODS="['ccall','cwrap','getValue','setValue']" \
     -s ALLOW_MEMORY_GROWTH=1 \
