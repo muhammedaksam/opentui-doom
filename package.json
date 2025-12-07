@@ -4,6 +4,15 @@
   "description": "Play DOOM in your terminal using OpenTUI's framebuffer rendering and doomgeneric WASM",
   "module": "src/index.ts",
   "type": "module",
+  "bin": {
+    "opentui-doom": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "doom/build",
+    "doom/doomgeneric_opentui.c",
+    "scripts"
+  ],
   "author": "Muhammed Mustafa AKŞAM <info@muhammedaksam.com.tr> (https://github.com/muhammedaksam)",
   "license": "MIT",
   "repository": {
@@ -31,7 +40,8 @@
   "scripts": {
     "dev": "bun run --watch src/index.ts",
     "build:doom": "bash ./scripts/build-doom.sh",
-    "start": "bun run src/index.ts"
+    "start": "bun run src/index.ts",
+    "prepublishOnly": "bun run build:doom"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -41,5 +51,9 @@
   },
   "dependencies": {
     "@opentui/core": "^0.1.57"
+  },
+  "engines": {
+    "node": ">=18",
+    "bun": ">=1.0"
   }
 }
