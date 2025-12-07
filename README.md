@@ -15,7 +15,15 @@
 - **Emscripten SDK** - For compiling DOOM to WebAssembly
 - **DOOM WAD file** - Game data (shareware `doom1.wad` is freely available)
 
-## 🚀 Quick Start
+## ⚡ Quick Play (via npm)
+
+If you have [Bun](https://bun.sh/) installed, just download a [doom1.wad](https://distro.ibiblio.org/slitaz/sources/packages/d/doom1.wad) and run:
+
+```bash
+bunx @muhammedaksam/opentui-doom --wad ./doom1.wad
+```
+
+## 🚀 Quick Start (Development)
 
 ### 1. Clone the Repository
 
@@ -46,7 +54,7 @@ This clones [doomgeneric](https://github.com/ozkl/doomgeneric) and compiles it t
 ### 4. Get a WAD File
 
 Download the shareware DOOM WAD:
-- [doom1.wad from ibiblio](https://distro.ibiblio.org/slitaz/sources/packages/d/doom-wad/)
+- [doom1.wad from ibiblio](https://distro.ibiblio.org/slitaz/sources/packages/d/doom1.wad)
 - Or use your own `DOOM.WAD` / `DOOM2.WAD`
 
 Place the WAD file in the project root.

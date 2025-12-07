@@ -141,7 +141,7 @@ async function initDoom() {
         "   bun run dev -- --wad /path/to/doom1.wad",
         "",
         "3. Download shareware WAD from:",
-        "   https://distro.ibiblio.org/slitaz/sources/packages/d/doom-wad/",
+        "   https://distro.ibiblio.org/slitaz/sources/packages/d/doom1.wad",
       ].join("\n"),
       position: "absolute",
       left: 2,
