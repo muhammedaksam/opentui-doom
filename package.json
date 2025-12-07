@@ -11,6 +11,8 @@
     "src",
     "doom/build",
     "doom/doomgeneric_opentui.c",
+    "doom/doom_js_sound_bridge.c",
+    "sound",
     "scripts"
   ],
   "author": "Muhammed Mustafa AKŞAM <info@muhammedaksam.com.tr> (https://github.com/muhammedaksam)",

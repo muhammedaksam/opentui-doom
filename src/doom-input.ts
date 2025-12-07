@@ -80,8 +80,8 @@ function mapKeyToDoom(key: KeyEvent): number | null {
     if (name === "tab") return DoomKeys.KEY_TAB;
     if (name === "backspace") return DoomKeys.KEY_BACKSPACE;
 
-    // Fire (Ctrl)
-    if (key.ctrl) return DoomKeys.KEY_FIRE;
+    // Fire (Ctrl) - but not Ctrl+C which should exit
+    if (key.ctrl && key.name !== "c") return DoomKeys.KEY_FIRE;
 
     // Alt for strafe
     if (key.meta || key.name === "alt") return DoomKeys.KEY_LALT;
@@ -128,8 +128,23 @@ function mapKeyToDoom(key: KeyEvent): number | null {
 // Track release timers for each key
 const keyTimers = new Map<string, ReturnType<typeof setTimeout>>();
 
-export function createDoomInputHandler(engine: DoomEngine) {
+export interface DoomInputOptions {
+    engine: DoomEngine;
+    onExit?: () => void;
+}
+
+export function createDoomInputHandler(options: DoomInputOptions) {
+    const { engine, onExit } = options;
+
     return (key: KeyEvent) => {
+        // Handle Ctrl+C for exit
+        if (key.ctrl && (key.name === "c" || key.sequence === "\x03")) {
+            if (onExit) {
+                onExit();
+            }
+            return;
+        }
+
         const doomKey = mapKeyToDoom(key);
 
         if (doomKey === null) return;
