@@ -1,10 +1,37 @@
 {
   "name": "@muhammedaksam/opentui-doom",
-  "module": "src/index.tsx",
+  "version": "0.1.0",
+  "description": "Play DOOM in your terminal using OpenTUI's framebuffer rendering and doomgeneric WASM",
+  "module": "src/index.ts",
   "type": "module",
-  "private": true,
+  "author": "Muhammed Mustafa AKŞAM <info@muhammedaksam.com.tr> (https://github.com/muhammedaksam)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muhammedaksam/opentui-doom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/muhammedaksam/opentui-doom/issues"
+  },
+  "homepage": "https://github.com/muhammedaksam/opentui-doom#readme",
+  "keywords": [
+    "doom",
+    "terminal",
+    "tui",
+    "opentui",
+    "wasm",
+    "webassembly",
+    "game",
+    "retro",
+    "cli",
+    "console",
+    "framebuffer",
+    "doomgeneric"
+  ],
   "scripts": {
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "build:doom": "bash ./scripts/build-doom.sh",
+    "start": "bun run src/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"

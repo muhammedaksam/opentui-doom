@@ -32,3 +32,8 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Finder (MacOS) folder config
 .DS_Store
+
+# DOOM files
+*.wad
+doom/build/
+doom/doomgeneric/
