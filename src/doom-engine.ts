@@ -41,15 +41,30 @@ export interface DoomModule {
     getValue: (ptr: number, type: string) => number;
 }
 
+export interface DoomEngineOptions {
+    wadPath: string;
+    print?: (text: string) => void;
+    printErr?: (text: string) => void;
+}
+
 export class DoomEngine {
     private module: DoomModule | null = null;
     private frameBufferPtr: number = 0;
     private initialized: boolean = false;
     private wadPath: string;
+    private print: (text: string) => void;
+    private printErr: (text: string) => void;
 
-    constructor(wadPath: string) {
-        // Resolve to absolute path
-        this.wadPath = resolve(wadPath);
+    constructor(optionsOrPath: string | DoomEngineOptions) {
+        if (typeof optionsOrPath === "string") {
+            this.wadPath = resolve(optionsOrPath);
+            this.print = (text: string) => console.log('[DOOM]', text);
+            this.printErr = (text: string) => console.error('[DOOM]', text);
+        } else {
+            this.wadPath = resolve(optionsOrPath.wadPath);
+            this.print = optionsOrPath.print || ((text: string) => console.log('[DOOM]', text));
+            this.printErr = optionsOrPath.printErr || ((text: string) => console.error('[DOOM]', text));
+        }
     }
 
     async init(): Promise<void> {
@@ -64,6 +79,9 @@ export class DoomEngine {
         // Dynamic import of the compiled DOOM module
         const createDoomModule = require(doomJsPath);
 
+        // Import audio system
+        const audio = await import("./doom-audio");
+
         // Create module with proper callbacks
         const moduleConfig: any = {
             locateFile: (path: string) => {
@@ -72,8 +90,16 @@ export class DoomEngine {
                 }
                 return path;
             },
-            print: (text: string) => console.log('[DOOM]', text),
-            printErr: (text: string) => console.error('[DOOM]', text),
+            print: (text: string) => this.print(text),
+            printErr: (text: string) => this.printErr(text),
+
+            // Audio callbacks - called from C via EM_ASM
+            initAudio: () => audio.initAudio(),
+            shutdownAudio: () => audio.shutdownAudio(),
+            playSound: (name: string, volume: number) => audio.playSound(name, volume),
+            playMusic: (name: string, looping: boolean) => audio.playMusic(name, looping),
+            stopMusic: () => audio.stopMusic(),
+            setMusicVolume: (volume: number) => audio.setMusicVolume(volume),
 
             // preRun receives Module as first argument  
             preRun: [
