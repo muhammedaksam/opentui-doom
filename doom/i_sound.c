@@ -48,7 +48,8 @@ char *snd_musiccmd = "";
 static sound_module_t *sound_module = NULL;
 static music_module_t *music_module = NULL;
 
-int snd_musicdevice = SNDDEVICE_SB;
+// Use CD device to avoid both the d_introa special case and GENMIDI init
+int snd_musicdevice = SNDDEVICE_CD;
 int snd_sfxdevice = SNDDEVICE_SB;
 
 // DOS-specific options: These are unused but should be maintained

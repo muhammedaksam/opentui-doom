@@ -1,6 +1,6 @@
 {
   "name": "@muhammedaksam/opentui-doom",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Play DOOM in your terminal using OpenTUI's framebuffer rendering and doomgeneric WASM",
   "module": "src/index.ts",
   "type": "module",
@@ -13,6 +13,7 @@
     "doom/doomgeneric_opentui.c",
     "doom/doom_js_sound_bridge.c",
     "doom/i_sound.c",
+    "doom/s_sound.c",
     "sound",
     "scripts"
   ],
