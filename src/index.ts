@@ -17,6 +17,7 @@ import {
 } from "@opentui/core";
 import { DoomEngine, DOOM_WIDTH, DOOM_HEIGHT } from "./doom-engine";
 import { createDoomInputHandler, getControlsHelp } from "./doom-input";
+import { createDoomMouseHandler, type DoomMouseHandler } from "./doom-mouse";
 import { shutdownAudio } from "./doom-audio";
 import { debugLog } from "./debug";
 import { parseArgs } from "util";
@@ -35,6 +36,11 @@ const { values } = parseArgs({
       short: "h",
       default: false,
     },
+    mouse: {
+      type: "boolean",
+      short: "m",
+      default: true,
+    },
   },
 });
 
@@ -48,7 +54,7 @@ Options:
   -w, --wad    Path to DOOM WAD file (default: doom1.wad)
   -h, --help   Show this help message
 
-${getControlsHelp()}
+${getControlsHelp()}${values.mouse ? '\n  Mouse=Aim/Fire' : ''}
 `);
   process.exit(0);
 }
@@ -130,6 +136,7 @@ let framebufferRenderable: FrameBufferRenderable | null = null;
 let isExiting = false; // Flag to stop the game loop when exiting
 let lastSaveSyncTime = 0; // Track when we last synced saves
 const SAVE_SYNC_INTERVAL = 5000; // Sync saves every 5 seconds
+let mouseHandler: DoomMouseHandler | null = null;
 
 async function initDoom() {
   try {
@@ -157,9 +164,12 @@ async function initDoom() {
     renderer.root.add(framebufferRenderable);
 
     // Add controls overlay
+    const controlsContent = values.mouse 
+      ? "DOOM | Ctrl+C to exit | WASD=Move Mouse=Aim Click=Fire"
+      : "DOOM | Ctrl+C to exit | Arrow/WASD=Move Space=Use Ctrl=Fire";
     const controlsText = new TextRenderable(renderer, {
       id: "controls",
-      content: "DOOM | Ctrl+C to exit | Arrow/WASD=Move Space=Use Ctrl=Fire",
+      content: controlsContent,
       position: "absolute",
       left: 1,
       top: 0,
@@ -175,6 +185,30 @@ async function initDoom() {
       onExit: cleanup,
     });
     renderer.keyInput.on("keypress", inputHandler);
+
+    // Set up mouse handler if enabled
+    if (values.mouse) {
+      mouseHandler = createDoomMouseHandler({
+        engine: doomEngine,
+        sensitivity: 2,  // Adjust for terminal cell size
+      });
+      
+      // Attach mouse events to framebuffer
+      framebufferRenderable.onMouseMove = (event) => {
+        mouseHandler?.onMouseMove(event.x, event.y);
+      };
+      framebufferRenderable.onMouseDrag = (event) => {
+        mouseHandler?.onMouseMove(event.x, event.y);
+      };
+      framebufferRenderable.onMouseDown = (event) => {
+        mouseHandler?.onMouseDown(event.button);
+      };
+      framebufferRenderable.onMouseUp = (event) => {
+        mouseHandler?.onMouseUp(event.button);
+      };
+      
+      debugLog("Input", "Mouse look enabled");
+    }
 
     // Start game loop
     renderer.setFrameCallback(gameLoop);
