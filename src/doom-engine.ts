@@ -7,6 +7,8 @@
 
 import { readFile } from "fs/promises";
 import { join, resolve } from "path";
+import { debugLog } from "./debug";
+import { loadExistingSaves, writeSave } from "./doom-saves";
 
 // DOOM screen dimensions
 export const DOOM_WIDTH = 1280;
@@ -35,6 +37,12 @@ export interface DoomModule {
         canRead: boolean,
         canWrite: boolean
     ) => string;
+    FS?: {
+        readFile: (path: string, opts?: { encoding?: string }) => Uint8Array;
+        readdir: (path: string) => string[];
+        stat: (path: string) => { mode: number };
+        isDir: (mode: number) => boolean;
+    };
     ccall: (name: string, returnType: string | null, argTypes: string[], args: any[]) => any;
     cwrap: (name: string, returnType: string | null, argTypes: string[]) => (...args: any[]) => any;
     setValue: (ptr: number, value: number, type: string) => void;
@@ -45,6 +53,7 @@ export interface DoomEngineOptions {
     wadPath: string;
     print?: (text: string) => void;
     printErr?: (text: string) => void;
+    onQuit?: () => void;
 }
 
 export class DoomEngine {
@@ -54,6 +63,8 @@ export class DoomEngine {
     private wadPath: string;
     private print: (text: string) => void;
     private printErr: (text: string) => void;
+    private onQuit: (() => void) | null = null;
+    private emscriptenFS: any = null;  // FS reference captured from Emscripten
 
     constructor(optionsOrPath: string | DoomEngineOptions) {
         if (typeof optionsOrPath === "string") {
@@ -64,6 +75,7 @@ export class DoomEngine {
             this.wadPath = resolve(optionsOrPath.wadPath);
             this.print = optionsOrPath.print || ((text: string) => console.log('[DOOM]', text));
             this.printErr = optionsOrPath.printErr || ((text: string) => console.error('[DOOM]', text));
+            this.onQuit = optionsOrPath.onQuit || null;
         }
     }
 
@@ -101,13 +113,39 @@ export class DoomEngine {
             stopMusic: () => audio.stopMusic(),
             setMusicVolume: (volume: number) => audio.setMusicVolume(volume),
 
+            // Game lifecycle callbacks - called from C via EM_ASM
+            quitGame: () => {
+                debugLog('Engine', 'quitGame callback called from WASM');
+                debugLog('Engine', `this.onQuit is: ${this.onQuit ? 'defined' : 'undefined'}`);
+                if (this.onQuit) {
+                    debugLog('Engine', 'calling this.onQuit()');
+                    this.onQuit();
+                    debugLog('Engine', 'this.onQuit() returned');
+                }
+            },
+
             // preRun receives Module as first argument  
             preRun: [
-                function (module: DoomModule) {
-                    // Create /doom directory
+                (module: any) => {
+                    // Create /doom directory for WAD
                     module.FS_createPath("/", "doom", true, true);
                     // Write WAD file to virtual filesystem
                     module.FS_createDataFile("/doom", "doom1.wad", wadArray, true, false);
+                    
+                    // Create .savegame directory for saves (DOOM looks here by default)
+                    module.FS_createPath("/", ".savegame", true, true);
+                    
+                    // Load existing saves from ~/.opentui-doom/ into virtual filesystem
+                    const existingSaves = loadExistingSaves();
+                    for (const [slot, data] of existingSaves) {
+                        const filename = `doomsav${slot}.dsg`;
+                        try {
+                            module.FS_createDataFile("/.savegame", filename, Array.from(data), true, true);
+                            debugLog("Engine", `Pre-loaded save slot ${slot} to virtual FS`);
+                        } catch (e) {
+                            debugLog("Engine", `Failed to pre-load save slot ${slot}: ${e}`);
+                        }
+                    }
                 }
             ],
         };
@@ -116,6 +154,18 @@ export class DoomEngine {
 
         if (!this.module) {
             throw new Error("Failed to initialize DOOM module");
+        }
+        
+        // Capture FS reference after module is fully loaded
+        // Try different methods to access Emscripten's FS
+        if ((this.module as any).FS) {
+            this.emscriptenFS = (this.module as any).FS;
+            debugLog("Engine", "Captured FS from module.FS");
+        } else if (typeof (globalThis as any).FS !== 'undefined') {
+            this.emscriptenFS = (globalThis as any).FS;
+            debugLog("Engine", "Captured FS from globalThis.FS");
+        } else {
+            debugLog("Engine", "Warning: Could not find Emscripten FS object");
         }
 
         // Initialize DOOM
@@ -214,5 +264,73 @@ export class DoomEngine {
 
     isInitialized(): boolean {
         return this.initialized;
+    }
+
+    /**
+     * Sync save games from the virtual filesystem to disk (~/.opentui-doom/)
+     * Call this periodically or after save operations to persist saves
+     */
+    syncSaves(): void {
+        if (!this.module || !this.emscriptenFS) {
+            debugLog("Engine", "syncSaves: module or FS not available");
+            return;
+        }
+        
+        // DOOM can save to different paths depending on configuration
+        // Try multiple possible locations
+        const savePaths = [
+            "/",              // Root
+            "/.savegame",     // Default when configdir is "."
+            ".savegame",      // Relative path (CWD)
+            "/doom",          // Our custom path  
+            "/tmp",           // Temp directory
+        ];
+        
+        const FS = this.emscriptenFS;
+        
+        // List root directory to see what exists
+        try {
+            const rootEntries = FS.readdir("/");
+            debugLog("Engine", `VFS root contents: ${rootEntries.join(", ")}`);
+            
+            // Check each directory at root
+            for (const entry of rootEntries) {
+                if (entry === "." || entry === "..") continue;
+                try {
+                    const stat = FS.stat(`/${entry}`);
+                    if (FS.isDir(stat.mode)) {
+                        const subEntries = FS.readdir(`/${entry}`);
+                        const dsgFiles = subEntries.filter((e: string) => e.endsWith(".dsg"));
+                        if (dsgFiles.length > 0) {
+                            debugLog("Engine", `Found .dsg files in /${entry}: ${dsgFiles.join(", ")}`);
+                        }
+                    }
+                } catch (e) {
+                    // Not a directory or can't read
+                }
+            }
+        } catch (e) {
+            debugLog("Engine", `Failed to list VFS root: ${e}`);
+        }
+        
+        for (let slot = 0; slot <= 5; slot++) {
+            const filename = `doomsav${slot}.dsg`;
+            
+            for (const basePath of savePaths) {
+                const vfsPath = basePath === "/" ? `/${filename}` : `${basePath}/${filename}`;
+                
+                try {
+                    // Try to read the file from virtual FS
+                    const data = FS.readFile(vfsPath);
+                    if (data && data.length > 0) {
+                        debugLog("Engine", `Found save at ${vfsPath}, syncing slot ${slot} (${data.length} bytes)`);
+                        writeSave(slot, data);
+                        break; // Found this slot, move to next
+                    }
+                } catch (e) {
+                    // File doesn't exist at this path, try next
+                }
+            }
+        }
     }
 }

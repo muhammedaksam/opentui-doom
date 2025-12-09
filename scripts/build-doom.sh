@@ -34,11 +34,12 @@ fi
 # Create build directory
 mkdir -p "$BUILD_DIR"
 
-# Copy our platform file, sound bridge, and custom sound files
+# Copy our platform file, sound bridge, and custom files
 cp "$DOOM_DIR/doomgeneric_opentui.c" "$DOOM_DIR/doomgeneric/doomgeneric/"
 cp "$DOOM_DIR/doom_js_sound_bridge.c" "$DOOM_DIR/doomgeneric/doomgeneric/"
 cp "$DOOM_DIR/i_sound.c" "$DOOM_DIR/doomgeneric/doomgeneric/"
 cp "$DOOM_DIR/s_sound.c" "$DOOM_DIR/doomgeneric/doomgeneric/"
+cp "$DOOM_DIR/i_system.c" "$DOOM_DIR/doomgeneric/doomgeneric/"
 
 echo "Compiling DOOM to WebAssembly..."
 cd "$DOOM_DIR/doomgeneric/doomgeneric"
@@ -48,7 +49,7 @@ emcc -O2 \
     -s WASM=1 \
     -s USE_SDL=2 \
     -s EXPORTED_FUNCTIONS="['_doomgeneric_Create','_doomgeneric_Tick','_DG_GetFrameBuffer','_DG_PushKeyEvent','_malloc','_free']" \
-    -s EXPORTED_RUNTIME_METHODS="['ccall','cwrap','getValue','setValue']" \
+    -s EXPORTED_RUNTIME_METHODS="['ccall','cwrap','getValue','setValue','FS']" \
     -s ALLOW_MEMORY_GROWTH=1 \
     -s INITIAL_MEMORY=33554432 \
     -s MODULARIZE=1 \

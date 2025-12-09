@@ -1,6 +1,6 @@
 {
   "name": "@muhammedaksam/opentui-doom",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Play DOOM in your terminal using OpenTUI's framebuffer rendering and doomgeneric WASM",
   "module": "src/index.ts",
   "type": "module",
@@ -13,6 +13,7 @@
     "doom/doomgeneric_opentui.c",
     "doom/doom_js_sound_bridge.c",
     "doom/i_sound.c",
+    "doom/i_system.c",
     "doom/s_sound.c",
     "sound",
     "scripts"
@@ -43,7 +44,10 @@
   ],
   "scripts": {
     "dev": "bun run --watch src/index.ts",
+    "dev:debug": "DOOM_DEBUG=1 bun run --watch src/index.ts",
     "build:doom": "bash ./scripts/build-doom.sh",
+    "build": "bun build src/index.ts --outdir dist --target node",
+    "typecheck": "bun x tsc --noEmit",
     "start": "bun run src/index.ts",
     "prepublishOnly": "bun run build:doom"
   },
