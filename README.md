@@ -7,6 +7,8 @@
 - **Full DOOM gameplay** in your terminal
 - **High-resolution rendering** using half-block characters (▀) for 2x vertical resolution
 - **Keyboard input support** with WASD and arrow keys
+- **Save/Load game** support - saves persist to `~/.opentui-doom/`
+- **Sound effects and music** via mpv
 - **WebAssembly powered** - DOOM compiled to WASM via Emscripten
 
 ## 📋 Requirements
@@ -54,6 +56,7 @@ This clones [doomgeneric](https://github.com/ozkl/doomgeneric) and compiles it t
 ### 4. Get a WAD File
 
 Download the shareware DOOM WAD:
+
 - [doom1.wad from ibiblio](https://distro.ibiblio.org/slitaz/sources/packages/d/doom1.wad)
 - Or use your own `DOOM.WAD` / `DOOM2.WAD`
 
@@ -67,22 +70,50 @@ bun run dev -- --wad ./doom1.wad
 
 ## 🎮 Controls
 
-| Action | Keys |
-|--------|------|
+| Action            | Keys           |
+| ----------------- | -------------- |
 | Move Forward/Back | W / S or ↑ / ↓ |
-| Turn Left/Right | ← / → |
-| Strafe | A / D |
-| Fire | Ctrl |
-| Use/Open | Space |
-| Run | Shift |
-| Weapons | 1-7 |
-| Menu | Escape |
-| Map | Tab |
-| Quit | Ctrl+C |
+| Turn Left/Right   | ← / →          |
+| Strafe            | A / D          |
+| Fire              | Ctrl           |
+| Use/Open          | Space          |
+| Run               | Shift          |
+| Weapons           | 1-7            |
+| Menu              | Escape         |
+| Map               | Tab            |
+| Quit              | Ctrl+C         |
+
+## 💾 Save Games
+
+Save games are stored in `~/.opentui-doom/` with DOOM's standard naming:
+
+- Slot 1: `doomsav0.dsg`
+- Slot 2: `doomsav1.dsg`
+- ... up to Slot 6: `doomsav5.dsg`
+
+Saves are automatically synced every 5 seconds and on exit.
+
+## 🔊 Sound
+
+Sound effects and music require **mpv** to be installed:
+
+```bash
+# Ubuntu/Debian
+sudo apt install mpv
+
+# macOS
+brew install mpv
+
+# Arch
+sudo pacman -S mpv
+```
+
+Sound files should be placed in the `sound/` directory.
 
 ## 🖥️ Recommended Terminal Configuration
 
 For the best experience, we recommend:
+
 - **Alacritty** terminal emulator
 - **Font size: 5** (for maximum resolution)
 - Maximize your terminal window

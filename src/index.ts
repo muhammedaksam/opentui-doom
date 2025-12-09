@@ -67,6 +67,16 @@ const cleanup = (signal?: string) => {
   isExiting = true;
   debugLog('Exit', 'isExiting set to true');
   
+  // Sync saves before exiting
+  if (doomEngine) {
+    try {
+      doomEngine.syncSaves();
+      debugLog('Exit', 'saves synced to disk');
+    } catch (e) {
+      debugLog('Exit', `failed to sync saves: ${e}`);
+    }
+  }
+  
   // Clear the frame callback to stop DOOM from ticking
   try {
     renderer.setFrameCallback(null as any);
@@ -118,6 +128,8 @@ container.add(loadingText);
 let doomEngine: DoomEngine | null = null;
 let framebufferRenderable: FrameBufferRenderable | null = null;
 let isExiting = false; // Flag to stop the game loop when exiting
+let lastSaveSyncTime = 0; // Track when we last synced saves
+const SAVE_SYNC_INTERVAL = 5000; // Sync saves every 5 seconds
 
 async function initDoom() {
   try {
@@ -204,6 +216,13 @@ async function gameLoop(deltaMs: number) {
 
   // Run DOOM tick
   doomEngine.tick();
+  
+  // Periodic save sync (every 5 seconds)
+  const now = Date.now();
+  if (now - lastSaveSyncTime > SAVE_SYNC_INTERVAL) {
+    doomEngine.syncSaves();
+    lastSaveSyncTime = now;
+  }
 
   // Get framebuffer from DOOM
   const pixels = doomEngine.getFrameBuffer();
