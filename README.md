@@ -6,6 +6,7 @@
 
 - **Full DOOM gameplay** in your terminal
 - **High-resolution rendering** using half-block characters (▀) for 2x vertical resolution
+- **Mouse aiming** - Turn and fire with your mouse (enabled by default)
 - **Keyboard input support** with WASD and arrow keys
 - **Save/Load game** support - saves persist to `~/.opentui-doom/`
 - **Sound effects and music** via mpv
@@ -68,20 +69,34 @@ Place the WAD file in the project root.
 bun run dev -- --wad ./doom1.wad
 ```
 
+To disable mouse aiming:
+
+```bash
+bun run dev -- --wad ./doom1.wad --mouse false
+```
+
+### Debug Mode
+
+To run with debug logging enabled (outputs to `debug.log`):
+
+```bash
+bun run dev:debug -- --wad ./doom1.wad
+```
+
 ## 🎮 Controls
 
-| Action            | Keys           |
-| ----------------- | -------------- |
-| Move Forward/Back | W / S or ↑ / ↓ |
-| Turn Left/Right   | ← / →          |
-| Strafe            | A / D          |
-| Fire              | Ctrl           |
-| Use/Open          | Space          |
-| Run               | Shift          |
-| Weapons           | 1-7            |
-| Menu              | Escape         |
-| Map               | Tab            |
-| Quit              | Ctrl+C         |
+| Action            | Keys               |
+| ----------------- | ------------------ |
+| Move Forward/Back | W / S or ↑ / ↓     |
+| Turn Left/Right   | Mouse or ← / →     |
+| Strafe            | A / D              |
+| Fire              | Left Click or Ctrl |
+| Use/Open          | Space              |
+| Run               | Shift              |
+| Weapons           | 1-7                |
+| Menu              | Escape             |
+| Map               | Tab                |
+| Quit              | Ctrl+C             |
 
 ## 💾 Save Games
 
@@ -148,7 +163,8 @@ opentui-doom/
 ├── src/
 │   ├── index.ts          # Main entry point
 │   ├── doom-engine.ts    # WASM module wrapper
-│   └── doom-input.ts     # Keyboard input mapping
+│   ├── doom-input.ts     # Keyboard input mapping
+│   └── doom-mouse.ts     # Mouse input handling
 ├── doom/
 │   ├── doomgeneric_opentui.c  # Platform implementation
 │   ├── doomgeneric/           # doomgeneric source (cloned during build)
