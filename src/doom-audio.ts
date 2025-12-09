@@ -7,20 +7,13 @@
 
 import { spawn, ChildProcess } from "child_process";
 import { join } from "path";
-import { existsSync, appendFileSync, unlinkSync } from "fs";
+import { existsSync, unlinkSync } from "fs";
 import { createConnection, Socket } from "net";
+import { debugLog } from "./debug";
 
-// Log file for debugging
-const logFile = join(import.meta.dir, "..", "debug.log");
-
+// Local helper to log with Audio category
 function log(message: string): void {
-    const timestamp = new Date().toISOString();
-    const line = `[${timestamp}] [Audio] ${message}\n`;
-    try {
-        appendFileSync(logFile, line);
-    } catch (e) {
-        // Ignore logging errors
-    }
+    debugLog('Audio', message);
 }
 
 // Track all spawned mpv processes for cleanup

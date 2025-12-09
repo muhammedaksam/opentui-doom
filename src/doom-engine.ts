@@ -7,6 +7,7 @@
 
 import { readFile } from "fs/promises";
 import { join, resolve } from "path";
+import { debugLog } from "./debug";
 
 // DOOM screen dimensions
 export const DOOM_WIDTH = 1280;
@@ -45,6 +46,7 @@ export interface DoomEngineOptions {
     wadPath: string;
     print?: (text: string) => void;
     printErr?: (text: string) => void;
+    onQuit?: () => void;
 }
 
 export class DoomEngine {
@@ -54,6 +56,7 @@ export class DoomEngine {
     private wadPath: string;
     private print: (text: string) => void;
     private printErr: (text: string) => void;
+    private onQuit: (() => void) | null = null;
 
     constructor(optionsOrPath: string | DoomEngineOptions) {
         if (typeof optionsOrPath === "string") {
@@ -64,6 +67,7 @@ export class DoomEngine {
             this.wadPath = resolve(optionsOrPath.wadPath);
             this.print = optionsOrPath.print || ((text: string) => console.log('[DOOM]', text));
             this.printErr = optionsOrPath.printErr || ((text: string) => console.error('[DOOM]', text));
+            this.onQuit = optionsOrPath.onQuit || null;
         }
     }
 
@@ -100,6 +104,17 @@ export class DoomEngine {
             playMusic: (name: string, looping: boolean) => audio.playMusic(name, looping),
             stopMusic: () => audio.stopMusic(),
             setMusicVolume: (volume: number) => audio.setMusicVolume(volume),
+
+            // Game lifecycle callbacks - called from C via EM_ASM
+            quitGame: () => {
+                debugLog('Engine', 'quitGame callback called from WASM');
+                debugLog('Engine', `this.onQuit is: ${this.onQuit ? 'defined' : 'undefined'}`);
+                if (this.onQuit) {
+                    debugLog('Engine', 'calling this.onQuit()');
+                    this.onQuit();
+                    debugLog('Engine', 'this.onQuit() returned');
+                }
+            },
 
             // preRun receives Module as first argument  
             preRun: [
