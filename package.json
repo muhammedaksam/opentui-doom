@@ -58,7 +58,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@opentui/core": "^0.1.57"
+    "@opentui/core": "^0.1.59"
   },
   "engines": {
     "node": ">=18",
