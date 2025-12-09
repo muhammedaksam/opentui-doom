@@ -49,7 +49,7 @@ emcc -O2 \
     -s WASM=1 \
     -s USE_SDL=2 \
     -s EXPORTED_FUNCTIONS="['_doomgeneric_Create','_doomgeneric_Tick','_DG_GetFrameBuffer','_DG_PushKeyEvent','_malloc','_free']" \
-    -s EXPORTED_RUNTIME_METHODS="['ccall','cwrap','getValue','setValue']" \
+    -s EXPORTED_RUNTIME_METHODS="['ccall','cwrap','getValue','setValue','FS']" \
     -s ALLOW_MEMORY_GROWTH=1 \
     -s INITIAL_MEMORY=33554432 \
     -s MODULARIZE=1 \
