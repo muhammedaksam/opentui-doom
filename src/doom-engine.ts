@@ -135,6 +135,23 @@ export class DoomEngine {
                     // Create .savegame directory for saves (DOOM looks here by default)
                     module.FS_createPath("/", ".savegame", true, true);
                     
+                    // Create default.cfg with WASD key bindings
+                    // This is needed because we send character codes for WASD (to allow typing in save dialogs)
+                    // Key codes: w=119, a=97, s=115, d=100
+                    const defaultConfig = [
+                        "key_up 119",           // 'w' for forward
+                        "key_down 115",         // 's' for backward  
+                        "key_strafeleft 97",    // 'a' for strafe left
+                        "key_straferight 100",  // 'd' for strafe right
+                    ].join("\n") + "\n";
+                    const configArray = Array.from(new TextEncoder().encode(defaultConfig));
+                    try {
+                        module.FS_createDataFile("/", "default.cfg", configArray, true, false);
+                        debugLog("Engine", "Created default.cfg with WASD key bindings");
+                    } catch (e) {
+                        debugLog("Engine", `Failed to create default.cfg: ${e}`);
+                    }
+                    
                     // Load existing saves from ~/.opentui-doom/ into virtual filesystem
                     const existingSaves = loadExistingSaves();
                     for (const [slot, data] of existingSaves) {
