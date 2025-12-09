@@ -18,6 +18,7 @@ import {
 import { DoomEngine, DOOM_WIDTH, DOOM_HEIGHT } from "./doom-engine";
 import { createDoomInputHandler, getControlsHelp } from "./doom-input";
 import { shutdownAudio } from "./doom-audio";
+import { debugLog } from "./debug";
 import { parseArgs } from "util";
 
 // Parse command line arguments
@@ -60,12 +61,32 @@ const renderer = await createCliRenderer({
 
 // Handle graceful shutdown
 const cleanup = (signal?: string) => {
+  debugLog('Exit', `cleanup called with signal: ${signal}`);
+  
+  // Set flag to stop the game loop FIRST - this is critical
+  isExiting = true;
+  debugLog('Exit', 'isExiting set to true');
+  
+  // Clear the frame callback to stop DOOM from ticking
+  try {
+    renderer.setFrameCallback(null as any);
+    debugLog('Exit', 'frame callback cleared');
+  } catch (e) {
+    debugLog('Exit', `failed to clear frame callback: ${e}`);
+  }
+  
   shutdownAudio();
+  debugLog('Exit', 'shutdownAudio completed');
+  
   try {
     renderer.stop();
+    debugLog('Exit', 'renderer.stop completed');
   } catch (e) {
-    // Ignore error if renderer already stopped
+    debugLog('Exit', `renderer.stop error: ${e}`);
   }
+  
+  // Exit the process
+  debugLog('Exit', 'calling process.exit(0)');
   process.exit(0);
 };
 
@@ -96,12 +117,16 @@ container.add(loadingText);
 // Try to initialize DOOM engine
 let doomEngine: DoomEngine | null = null;
 let framebufferRenderable: FrameBufferRenderable | null = null;
+let isExiting = false; // Flag to stop the game loop when exiting
 
 async function initDoom() {
   try {
     loadingText.content = `Loading DOOM from: ${values.wad}`;
 
-    doomEngine = new DoomEngine(values.wad!);
+    doomEngine = new DoomEngine({
+      wadPath: values.wad!,
+      onQuit: cleanup,
+    });
     await doomEngine.init();
 
     // Remove loading text
@@ -172,6 +197,9 @@ async function initDoom() {
 }
 
 async function gameLoop(deltaMs: number) {
+  // Bail out immediately if we're exiting
+  if (isExiting) return;
+  
   if (!doomEngine || !framebufferRenderable) return;
 
   // Run DOOM tick

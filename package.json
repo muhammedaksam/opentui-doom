@@ -13,6 +13,7 @@
     "doom/doomgeneric_opentui.c",
     "doom/doom_js_sound_bridge.c",
     "doom/i_sound.c",
+    "doom/i_system.c",
     "doom/s_sound.c",
     "sound",
     "scripts"
@@ -43,6 +44,7 @@
   ],
   "scripts": {
     "dev": "bun run --watch src/index.ts",
+    "dev:debug": "DOOM_DEBUG=1 bun run --watch src/index.ts",
     "build:doom": "bash ./scripts/build-doom.sh",
     "start": "bun run src/index.ts",
     "prepublishOnly": "bun run build:doom"

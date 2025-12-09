@@ -151,6 +151,11 @@ export function createDoomInputHandler(options: DoomInputOptions) {
 
         const keyId = key.name || key.sequence || "";
         const wasPressed = keyStates.get(keyId) ?? false;
+        const keyName = key.name?.toLowerCase() ?? "";
+
+        // Menu confirmation keys (y/n) should always send keydown on every press
+        // These are used for quit dialogs and other prompts
+        const isMenuConfirmKey = keyName === "y" || keyName === "n";
 
         // Clear any existing release timer for this key
         const existingTimer = keyTimers.get(keyId);
@@ -159,13 +164,23 @@ export function createDoomInputHandler(options: DoomInputOptions) {
             keyTimers.delete(keyId);
         }
 
-        // Key press - only send if not already pressed
-        if (!wasPressed) {
+        // Key press - send if not already pressed, OR if it's a menu confirmation key
+        if (!wasPressed || isMenuConfirmKey) {
             keyStates.set(keyId, true);
             engine.pushKey(true, doomKey);
+            
+            // For menu confirmation keys, immediately send release too
+            // since DOOM only cares about the keydown event
+            if (isMenuConfirmKey) {
+                setTimeout(() => {
+                    engine.pushKey(false, doomKey);
+                    keyStates.set(keyId, false);
+                }, 50);
+                return;
+            }
         }
 
-        // Schedule key release after 300ms of no input
+        // Schedule key release after 300ms of no input (for non-menu keys)
         const timer = setTimeout(() => {
             if (keyStates.get(keyId)) {
                 keyStates.set(keyId, false);
