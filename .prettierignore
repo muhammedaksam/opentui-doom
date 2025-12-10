@@ -1,0 +1,16 @@
+# C source files
+doom/
+*.c
+*.h
+
+# Build outputs
+dist/
+node_modules/
+
+# Scripts
+scripts/
+
+# Other
+*.wad
+*.wasm
+*.js.map
