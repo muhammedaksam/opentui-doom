@@ -1,3 +1,11 @@
+[![npm version](https://img.shields.io/npm/v/@muhammedaksam/opentui-doom.svg)](https://www.npmjs.com/package/@muhammedaksam/opentui-doom)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+[![Bun](https://img.shields.io/badge/Bun-000?logo=bun&logoColor=fff)](https://bun.sh/)
+[![Alacritty](https://img.shields.io/badge/Alacritty-F46D01?logo=alacritty&logoColor=fff)](https://alacritty.org/)
+[![CI](https://github.com/muhammedaksam/opentui-doom/workflows/CI/badge.svg)](https://github.com/muhammedaksam/opentui-doom/actions)
+[![Mentioned in Awesome OpenTUI](https://awesome.re/mentioned-badge.svg)](https://github.com/msmps/awesome-opentui)
+
 # DOOM for OpenTUI
 
 🎮 Play DOOM in your terminal using [OpenTUI](https://github.com/sst/opentui)'s framebuffer rendering!

@@ -1,6 +1,6 @@
 /**
  * Debug logging utility for OpenTUI-DOOM
- * 
+ *
  * Only logs when DOOM_DEBUG environment variable is set.
  * Usage: DOOM_DEBUG=1 bun run dev
  */
@@ -16,12 +16,12 @@ const logFile = join(import.meta.dir, "..", "debug.log");
  */
 export function debugLog(category: string, message: string): void {
   if (!DEBUG_ENABLED) return;
-  
+
   const timestamp = new Date().toISOString();
   const line = `[${timestamp}] [${category}] ${message}\n`;
   try {
     appendFileSync(logFile, line);
-  } catch (e) {
+  } catch (_e) {
     // Ignore logging errors
   }
 }

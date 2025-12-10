@@ -48,11 +48,19 @@
     "build:doom": "bash ./scripts/build-doom.sh",
     "build": "bun build src/index.ts --outdir dist --target node",
     "typecheck": "bun x tsc --noEmit",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write src/",
+    "format:check": "prettier --check src/",
     "start": "bun run src/index.ts",
     "prepublishOnly": "bun run build:doom"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@eslint/js": "^9.17.0",
+    "@types/bun": "latest",
+    "eslint": "^9.17.0",
+    "prettier": "^3.4.2",
+    "typescript-eslint": "^8.18.1"
   },
   "peerDependencies": {
     "typescript": "^5"
@@ -61,7 +69,6 @@
     "@opentui/core": "^0.1.59"
   },
   "engines": {
-    "node": ">=18",
     "bun": ">=1.0"
   }
 }
