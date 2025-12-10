@@ -1,9 +1,9 @@
 #!/usr/bin/env bun
 /**
  * DOOM for OpenTUI
- * 
+ *
  * Plays DOOM in your terminal using OpenTUI's framebuffer rendering.
- * 
+ *
  * Usage: bun run dev -- --wad /path/to/doom1.wad
  */
 
@@ -54,7 +54,7 @@ Options:
   -w, --wad    Path to DOOM WAD file (default: doom1.wad)
   -h, --help   Show this help message
 
-${getControlsHelp()}${values.mouse ? '\n  Mouse=Aim/Fire' : ''}
+${getControlsHelp()}${values.mouse ? "\n  Mouse=Aim/Fire" : ""}
 `);
   process.exit(0);
 }
@@ -67,42 +67,42 @@ const renderer = await createCliRenderer({
 
 // Handle graceful shutdown
 const cleanup = (signal?: string) => {
-  debugLog('Exit', `cleanup called with signal: ${signal}`);
-  
+  debugLog("Exit", `cleanup called with signal: ${signal}`);
+
   // Set flag to stop the game loop FIRST - this is critical
   isExiting = true;
-  debugLog('Exit', 'isExiting set to true');
-  
+  debugLog("Exit", "isExiting set to true");
+
   // Sync saves before exiting
   if (doomEngine) {
     try {
       doomEngine.syncSaves();
-      debugLog('Exit', 'saves synced to disk');
+      debugLog("Exit", "saves synced to disk");
     } catch (e) {
-      debugLog('Exit', `failed to sync saves: ${e}`);
+      debugLog("Exit", `failed to sync saves: ${e}`);
     }
   }
-  
+
   // Clear the frame callback to stop DOOM from ticking
   try {
     renderer.setFrameCallback(null as any);
-    debugLog('Exit', 'frame callback cleared');
+    debugLog("Exit", "frame callback cleared");
   } catch (e) {
-    debugLog('Exit', `failed to clear frame callback: ${e}`);
+    debugLog("Exit", `failed to clear frame callback: ${e}`);
   }
-  
+
   shutdownAudio();
-  debugLog('Exit', 'shutdownAudio completed');
-  
+  debugLog("Exit", "shutdownAudio completed");
+
   try {
     renderer.stop();
-    debugLog('Exit', 'renderer.stop completed');
+    debugLog("Exit", "renderer.stop completed");
   } catch (e) {
-    debugLog('Exit', `renderer.stop error: ${e}`);
+    debugLog("Exit", `renderer.stop error: ${e}`);
   }
-  
+
   // Exit the process
-  debugLog('Exit', 'calling process.exit(0)');
+  debugLog("Exit", "calling process.exit(0)");
   process.exit(0);
 };
 
@@ -164,7 +164,7 @@ async function initDoom() {
     renderer.root.add(framebufferRenderable);
 
     // Add controls overlay
-    const controlsContent = values.mouse 
+    const controlsContent = values.mouse
       ? "DOOM | Ctrl+C to exit | WASD=Move Mouse=Aim Click=Fire"
       : "DOOM | Ctrl+C to exit | Arrow/WASD=Move Space=Use Ctrl=Fire";
     const controlsText = new TextRenderable(renderer, {
@@ -190,9 +190,9 @@ async function initDoom() {
     if (values.mouse) {
       mouseHandler = createDoomMouseHandler({
         engine: doomEngine,
-        sensitivity: 2,  // Adjust for terminal cell size
+        sensitivity: 2, // Adjust for terminal cell size
       });
-      
+
       // Attach mouse events to framebuffer
       framebufferRenderable.onMouseMove = (event) => {
         mouseHandler?.onMouseMove(event.x, event.y);
@@ -206,13 +206,12 @@ async function initDoom() {
       framebufferRenderable.onMouseUp = (event) => {
         mouseHandler?.onMouseUp(event.button);
       };
-      
+
       debugLog("Input", "Mouse look enabled");
     }
 
     // Start game loop
     renderer.setFrameCallback(gameLoop);
-
   } catch (error) {
     loadingText.content = `Error: ${error}`;
     loadingText.fg = RGBA.fromInts(255, 100, 100);
@@ -242,15 +241,15 @@ async function initDoom() {
   }
 }
 
-async function gameLoop(deltaMs: number) {
+async function gameLoop(_deltaMs: number) {
   // Bail out immediately if we're exiting
   if (isExiting) return;
-  
+
   if (!doomEngine || !framebufferRenderable) return;
 
   // Run DOOM tick
   doomEngine.tick();
-  
+
   // Periodic save sync (every 5 seconds)
   const now = Date.now();
   if (now - lastSaveSyncTime > SAVE_SYNC_INTERVAL) {
@@ -270,7 +269,7 @@ async function gameLoop(deltaMs: number) {
   // Render to OpenTUI framebuffer using half-block characters
   // The upper half-block character (▀) uses foreground for top pixel, background for bottom
   for (let y = 0; y < fb.height; y++) {
-    const srcY1 = Math.floor(y * 2 * scaleY);     // Top pixel row
+    const srcY1 = Math.floor(y * 2 * scaleY); // Top pixel row
     const srcY2 = Math.floor((y * 2 + 1) * scaleY); // Bottom pixel row
 
     for (let x = 0; x < fb.width; x++) {
