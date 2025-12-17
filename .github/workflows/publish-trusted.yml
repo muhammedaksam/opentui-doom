@@ -3,7 +3,7 @@ name: Publish Package (Trusted Publishing)
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 permissions:
   id-token: write # Required for OIDC trusted publishing
@@ -18,29 +18,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Environment
+        uses: ./.github/actions/setup
         with:
-          bun-version: latest
-
-      - name: Setup Emscripten
-        uses: mymindstorm/setup-emsdk@v14
-        with:
-          version: 'latest'
-          actions-cache-folder: 'emsdk-cache'
+          frozen-lockfile: "true"
+          setup-emscripten: "true"
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '22.x'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "22.x"
+          registry-url: "https://registry.npmjs.org"
 
       # Ensure npm 11.5.1 or later is installed for trusted publishing support
       - name: Update npm to latest version
         run: npm install -g npm@latest
-
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
 
       - name: Build DOOM WASM
         run: bun run build:doom
