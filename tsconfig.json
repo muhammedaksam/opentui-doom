@@ -1,4 +1,5 @@
 {
+  "exclude": ["node_modules", "dist", "emsdk-cache", "doom"],
   "compilerOptions": {
     // Environment setup & latest features
     "lib": ["ESNext"],
