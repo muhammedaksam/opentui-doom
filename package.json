@@ -1,6 +1,6 @@
 {
   "name": "@muhammedaksam/opentui-doom",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Play DOOM in your terminal using OpenTUI's framebuffer rendering and doomgeneric WASM",
   "module": "src/index.ts",
   "type": "module",
@@ -59,14 +59,14 @@
     "@eslint/js": "^10.0.1",
     "@types/bun": "latest",
     "eslint": "^10.0.0",
-    "prettier": "^3.7.4",
-    "typescript-eslint": "^8.50.0"
+    "prettier": "^3.8.1",
+    "typescript-eslint": "^8.55.0"
   },
   "peerDependencies": {
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "@opentui/core": "^0.1.61"
+    "@opentui/core": "^0.1.79"
   },
   "engines": {
     "bun": ">=1.0"
