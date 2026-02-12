@@ -56,7 +56,7 @@
     "prepublishOnly": "bun run build:doom"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.2",
+    "@eslint/js": "^10.0.1",
     "@types/bun": "latest",
     "eslint": "^9.39.2",
     "prettier": "^3.7.4",
