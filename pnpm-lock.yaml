@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@opentui/core':
         specifier: ^0.1.79
-        version: 0.1.79(stage-js@1.0.1)(typescript@5.9.3)(web-tree-sitter@0.25.10)
+        version: 0.1.99(stage-js@1.0.1)(typescript@5.9.3)(web-tree-sitter@0.25.10)
       typescript:
         specifier: ^5.9.2
         version: 5.9.3
@@ -20,7 +20,7 @@ importers:
         version: 10.0.1(eslint@10.2.0)
       '@types/bun':
         specifier: latest
-        version: 1.3.11
+        version: 1.3.12
       eslint:
         specifier: ^10.0.0
         version: 10.2.0
@@ -203,46 +203,46 @@ packages:
     resolution: {integrity: sha512-gqFTGEosKbOkYF/WFj26jMHOI5OH2jeP1MmC/zbK6BF6VJBf8rIC5898dPfSzZEbSA0wbbV5slbntWVc5PKLFA==}
     engines: {node: '>=18'}
 
-  '@opentui/core-darwin-arm64@0.1.79':
-    resolution: {integrity: sha512-kgsGniV+DM5G1P3GideyJhvfnthNKcVCAm2mPTIr9InQ3L0gS/Feh7zgwOS/jxDvdlQbOWGKMk2Z3JApeC1MLw==}
+  '@opentui/core-darwin-arm64@0.1.99':
+    resolution: {integrity: sha512-bzVrqeX2vb5iWrc/ftOUOqeUY8XO+qSgoTwj5TXHuwagavgwD3Hpeyjx8+icnTTeM4pao0som1WR9xfye6/X5Q==}
     cpu: [arm64]
     os: [darwin]
 
-  '@opentui/core-darwin-x64@0.1.79':
-    resolution: {integrity: sha512-OpyAmFqAAKQ2CeFmf/oLWcNksmP6Ryx/3R5dbKXThOudMCeQvfvInJTRbc2jTn9VFpf+Qj4BgHkJg1h90tf/EA==}
+  '@opentui/core-darwin-x64@0.1.99':
+    resolution: {integrity: sha512-VE4FrXBYpkxnvkqcCV1a8aN9jyyMJMihVW+V2NLCtp+4yQsj0AapG5TiUSN76XnmSZRptxDy5rBmEempeoIZbg==}
     cpu: [x64]
     os: [darwin]
 
-  '@opentui/core-linux-arm64@0.1.79':
-    resolution: {integrity: sha512-DCa5YaknS4bWhFt8TMEGH+qmTinyzuY8hoZbO4crtWXAxofPP7Pas76Cwxlvis/PyLffA+pPxAl1l5sUZpsvqw==}
+  '@opentui/core-linux-arm64@0.1.99':
+    resolution: {integrity: sha512-viXQsbpS7yHjYkl7+am32JdvG96QU9lvHh1UiZtpOxcNUUqiYmA2ZwZFPD2Bi54jNyj5l2hjH6YkD3DzE2FEWA==}
     cpu: [arm64]
     os: [linux]
 
-  '@opentui/core-linux-x64@0.1.79':
-    resolution: {integrity: sha512-V6xjvFfHh3NGvsuuDae1KHPRZXHMEE8XL0A/GM6v4I4OCC23kDmkK60Vn6OptQwAzwwbz0X0IX+Ut/GQU9qGgA==}
+  '@opentui/core-linux-x64@0.1.99':
+    resolution: {integrity: sha512-WLoEFINOSp0tZSR9y4LUuGc7n4Y7H1wcpjUPzQ9vChkYDXrfZltEanzoDWbDcQ4kZQW5tHVC7LrZHpAsRLwFZg==}
     cpu: [x64]
     os: [linux]
 
-  '@opentui/core-win32-arm64@0.1.79':
-    resolution: {integrity: sha512-sPRKnVzOdT5szI59tte7pxwwkYA+07EQN+6miFAvkFuiLmRUngONUD8HVjL7nCnxcPFqxaU4Rvl1y40ST86g8g==}
+  '@opentui/core-win32-arm64@0.1.99':
+    resolution: {integrity: sha512-yWMOLWCEO8HdrctU1dMkgZC8qGkiO4Dwr4/e11tTvVpRmYhDsP/IR89ZjEEtOwnKwFOFuB/MxvflqaEWVQ2g5Q==}
     cpu: [arm64]
     os: [win32]
 
-  '@opentui/core-win32-x64@0.1.79':
-    resolution: {integrity: sha512-vmQcFTvKf9fqajnDtgU6/uAsiTGwx8//khqHVBmiTEXUsiT792Ki9l8sgNughbuldqG5iZOiF6IaAWU1H67UpA==}
+  '@opentui/core-win32-x64@0.1.99':
+    resolution: {integrity: sha512-aYRlsL2w8YRL6vPd7/hrqlNVkXU3QowWb01TOvAcHS8UAsXaGFUr47kSDyjxDi1wg1MzmVduCfsC7T3NoThV1w==}
     cpu: [x64]
     os: [win32]
 
-  '@opentui/core@0.1.79':
-    resolution: {integrity: sha512-job/t09w8A/aHb/WuaVbimu5fIffyN+PCuVO5cYhXEg/NkOkC/WdFi80B8bwncR/DBPyLAh6oJ3EG86grOVo5g==}
+  '@opentui/core@0.1.99':
+    resolution: {integrity: sha512-I3+AEgGzqNWIpWX9g2WOscSPwtQDNOm4KlBjxBWCZjLxkF07u77heWXF7OiAdhKLtNUW6TFiyt6yznqAZPdG3A==}
     peerDependencies:
       web-tree-sitter: 0.25.10
 
   '@tokenizer/token@0.3.0':
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
 
-  '@types/bun@1.3.11':
-    resolution: {integrity: sha512-5vPne5QvtpjGpsGYXiFyycfpDF2ECyPcTSsFBMa0fraoxiQyMJ3SmuQIGhzPg2WJuWxVBoxWJ2kClYTcw/4fAg==}
+  '@types/bun@1.3.12':
+    resolution: {integrity: sha512-DBv81elK+/VSwXHDlnH3Qduw+KxkTIWi7TXkAeh24zpi5l0B2kUg9Ga3tb4nJaPcOFswflgi/yAvMVBPrxMB+A==}
 
   '@types/esrecurse@4.3.1':
     resolution: {integrity: sha512-xJBAbDifo5hpffDBuHl0Y8ywswbiAp/Wi7Y/GtAgSlZyIABppyurxVueOPE8LUQOxdlgi6Zqce7uoEpqNTeiUw==}
@@ -256,8 +256,8 @@ packages:
   '@types/node@16.9.1':
     resolution: {integrity: sha512-QpLcX9ZSsq3YYUUnD3nFDY8H7wctAhQj/TFKL8Ya8v5fMm3CFXxo8zStsLAl780ltoYoo1WvKUVGBQK+1ifr7g==}
 
-  '@types/node@25.5.2':
-    resolution: {integrity: sha512-tO4ZIRKNC+MDWV4qKVZe3Ql/woTnmHDr5JD8UI5hn2pwBrHEwOEMZK7WlNb5RKB6EoJ02gwmQS9OrjuFnZYdpg==}
+  '@types/node@25.6.0':
+    resolution: {integrity: sha512-+qIYRKdNYJwY3vRCZMdJbPLJAtGjQBudzZzdzwQYkEPQd+PJGixUL5QfvCLDaULoLv+RhT3LDkwEfKaAkgSmNQ==}
 
   '@typescript-eslint/eslint-plugin@8.55.0':
     resolution: {integrity: sha512-1y/MVSz0NglV1ijHC8OT49mPJ4qhPYjiK08YUQVbIOyu+5k862LKUHFkpKHWu//zmr7hDR2rhwUm6gnCGNmGBQ==}
@@ -373,31 +373,31 @@ packages:
     peerDependencies:
       typescript: ^5
 
-  bun-types@1.3.11:
-    resolution: {integrity: sha512-1KGPpoxQWl9f6wcZh57LvrPIInQMn2TQ7jsgxqpRzg+l0QPOFvJVH7HmvHo/AiPgwXy+/Thf6Ov3EdVn1vOabg==}
+  bun-types@1.3.12:
+    resolution: {integrity: sha512-HqOLj5PoFajAQciOMRiIZGNoKxDJSr6qigAttOX40vJuSp6DN/CxWp9s3C1Xwm4oH7ybueITwiaOcWXoYVoRkA==}
 
-  bun-webgpu-darwin-arm64@0.1.4:
-    resolution: {integrity: sha512-eDgLN9teKTfmvrCqgwwmWNsNszxYs7IZdCqk0S1DCarvMhr4wcajoSBlA/nQA0/owwLduPTS8xxCnQp4/N/gDg==}
+  bun-webgpu-darwin-arm64@0.1.6:
+    resolution: {integrity: sha512-lIsDkPzJzPl6yrB5CUOINJFPnTRv6fF/Q8J1mAr43ogSp86WZEg9XZKaT6f3EUJ+9ETogGoMnoj1q0AwHUTbAQ==}
     cpu: [arm64]
     os: [darwin]
 
-  bun-webgpu-darwin-x64@0.1.4:
-    resolution: {integrity: sha512-X+PjwJUWenUmdQBP8EtdItMyieQ6Nlpn+BH518oaouDiSnWj5+b0Y7DNDZJq7Ezom4EaxmqL/uGYZK3aCQ7CXg==}
+  bun-webgpu-darwin-x64@0.1.6:
+    resolution: {integrity: sha512-uEddf5U7GvKIkM/BV18rUKtYHL6d0KeqBjNHwfqDH9QgEo9KVSKvJXS5I/sMefk5V5pIYE+8tQhtrREevhocng==}
     cpu: [x64]
     os: [darwin]
 
-  bun-webgpu-linux-x64@0.1.4:
-    resolution: {integrity: sha512-zMLs2YIGB+/jxrYFXaFhVKX/GBt05UTF45lc9srcHc9JXGjEj+12CIo1CHLTAWatXMTqt0Jsu6ukWEoWVT/ayA==}
+  bun-webgpu-linux-x64@0.1.6:
+    resolution: {integrity: sha512-Y/f15j9r8ba0xUz+3lATtS74OE+PPzQXO7Do/1eCluJcuOlfa77kMjvBK/ShWnem3Y9xqi59pebTPOGRB+CaJA==}
     cpu: [x64]
     os: [linux]
 
-  bun-webgpu-win32-x64@0.1.4:
-    resolution: {integrity: sha512-Z5yAK28xrcm8Wb5k7TZ8FJKpOI/r+aVCRdlHYAqI2SDJFN3nD4mJs900X6kNVmG/xFzb5yOuKVYWGg+6ZXWbyA==}
+  bun-webgpu-win32-x64@0.1.6:
+    resolution: {integrity: sha512-MHSFAKqizISb+C5NfDrFe3g0Al5Njnu0j/A+oO2Q+bIWX+fUYjBSowiYE1ZXJx65KuryuB+tiM7Qh6cQbVvkEg==}
     cpu: [x64]
     os: [win32]
 
-  bun-webgpu@0.1.4:
-    resolution: {integrity: sha512-Kw+HoXl1PMWJTh9wvh63SSRofTA8vYBFCw0XEP1V1fFdQEDhI8Sgf73sdndE/oDpN/7CMx0Yv/q8FCvO39ROMQ==}
+  bun-webgpu@0.1.5:
+    resolution: {integrity: sha512-91/K6S5whZKX7CWAm9AylhyKrLGRz6BUiiPiM/kXadSnD4rffljCD/q9cNFftm5YXhx4MvLqw33yEilxogJvwA==}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -651,8 +651,8 @@ packages:
     resolution: {integrity: sha512-o8mkY4E/+LNUf6LzX96ht6k6CEDi65k9G2rjMtBe9Oo+VPKSvl+0GKHuH/AlG+GA5LPG/i5hrekkxUc3s2HU+Q==}
     hasBin: true
 
-  planck@1.4.3:
-    resolution: {integrity: sha512-B+lHKhRSeg7vZOfEyEzyQVu7nx8JHcX3QgnAcHXrPW0j04XYKX5eXSiUrxH2Z5QR8OoqvjD6zKIaPMdMYAd0uA==}
+  planck@1.5.0:
+    resolution: {integrity: sha512-dlvqJE+FscZgrGUXJ5ybd0o5bvZ5XXyZNbm08xGsXp9WjXeAyWSFT6n9s/1PQcUBo4546fDXA5RMA4wbDyZw6g==}
     engines: {node: '>=24.0'}
     peerDependencies:
       stage-js: ^1.0.0-alpha.12
@@ -693,8 +693,8 @@ packages:
   safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
 
-  sax@1.4.4:
-    resolution: {integrity: sha512-1n3r/tGXO6b6VXMdFT54SHzT9ytu9yr7TaELowdYpMqY/Ao7EnlQGmAQ1+RatX7Tkkdm6hONI2owqNx2aZj5Sw==}
+  sax@1.6.0:
+    resolution: {integrity: sha512-6R3J5M4AcbtLUdZmRv2SygeVaM7IhrLXu9BmnOGmmACak8fiUtOsYNWUS4uK7upbmHIBbLBeFeI//477BKLBzA==}
     engines: {node: '>=11.0.0'}
 
   semver@7.7.4:
@@ -710,8 +710,8 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  simple-xml-to-json@1.2.3:
-    resolution: {integrity: sha512-kWJDCr9EWtZ+/EYYM5MareWj2cRnZGF93YDNpH4jQiHB+hBIZnfPFSQiVMzZOdk+zXWqTZ/9fTeQNu2DqeiudA==}
+  simple-xml-to-json@1.2.7:
+    resolution: {integrity: sha512-mz9VXphOxQWX3eQ/uXCtm6upltoN0DLx8Zb5T4TFC4FHB7S9FDPGre8CfLWqPWQQH/GrQYd2AXhhVM5LDpYx6Q==}
     engines: {node: '>=20.12.2'}
 
   stage-js@1.0.1:
@@ -761,8 +761,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@7.18.2:
-    resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
+  undici-types@7.19.2:
+    resolution: {integrity: sha512-qYVnV5OEm2AW8cJMCpdV20CDyaN3g0AjDlOGf1OW4iaDEx8MwdtChUp4zu4H0VP3nDRF/8RKWH+IPp9uW0YGZg==}
 
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
@@ -1006,7 +1006,7 @@ snapshots:
       parse-bmfont-ascii: 1.0.6
       parse-bmfont-binary: 1.0.6
       parse-bmfont-xml: 1.1.6
-      simple-xml-to-json: 1.2.3
+      simple-xml-to-json: 1.2.7
       zod: 3.25.76
 
   '@jimp/plugin-quantize@1.6.0':
@@ -1047,25 +1047,25 @@ snapshots:
       '@jimp/types': 1.6.0
       tinycolor2: 1.6.0
 
-  '@opentui/core-darwin-arm64@0.1.79':
+  '@opentui/core-darwin-arm64@0.1.99':
     optional: true
 
-  '@opentui/core-darwin-x64@0.1.79':
+  '@opentui/core-darwin-x64@0.1.99':
     optional: true
 
-  '@opentui/core-linux-arm64@0.1.79':
+  '@opentui/core-linux-arm64@0.1.99':
     optional: true
 
-  '@opentui/core-linux-x64@0.1.79':
+  '@opentui/core-linux-x64@0.1.99':
     optional: true
 
-  '@opentui/core-win32-arm64@0.1.79':
+  '@opentui/core-win32-arm64@0.1.99':
     optional: true
 
-  '@opentui/core-win32-x64@0.1.79':
+  '@opentui/core-win32-x64@0.1.99':
     optional: true
 
-  '@opentui/core@0.1.79(stage-js@1.0.1)(typescript@5.9.3)(web-tree-sitter@0.25.10)':
+  '@opentui/core@0.1.99(stage-js@1.0.1)(typescript@5.9.3)(web-tree-sitter@0.25.10)':
     dependencies:
       bun-ffi-structs: 0.1.2(typescript@5.9.3)
       diff: 8.0.2
@@ -1075,14 +1075,14 @@ snapshots:
       yoga-layout: 3.2.1
     optionalDependencies:
       '@dimforge/rapier2d-simd-compat': 0.17.3
-      '@opentui/core-darwin-arm64': 0.1.79
-      '@opentui/core-darwin-x64': 0.1.79
-      '@opentui/core-linux-arm64': 0.1.79
-      '@opentui/core-linux-x64': 0.1.79
-      '@opentui/core-win32-arm64': 0.1.79
-      '@opentui/core-win32-x64': 0.1.79
-      bun-webgpu: 0.1.4
-      planck: 1.4.3(stage-js@1.0.1)
+      '@opentui/core-darwin-arm64': 0.1.99
+      '@opentui/core-darwin-x64': 0.1.99
+      '@opentui/core-linux-arm64': 0.1.99
+      '@opentui/core-linux-x64': 0.1.99
+      '@opentui/core-win32-arm64': 0.1.99
+      '@opentui/core-win32-x64': 0.1.99
+      bun-webgpu: 0.1.5
+      planck: 1.5.0(stage-js@1.0.1)
       three: 0.177.0
     transitivePeerDependencies:
       - stage-js
@@ -1090,9 +1090,9 @@ snapshots:
 
   '@tokenizer/token@0.3.0': {}
 
-  '@types/bun@1.3.11':
+  '@types/bun@1.3.12':
     dependencies:
-      bun-types: 1.3.11
+      bun-types: 1.3.12
 
   '@types/esrecurse@4.3.1': {}
 
@@ -1102,9 +1102,9 @@ snapshots:
 
   '@types/node@16.9.1': {}
 
-  '@types/node@25.5.2':
+  '@types/node@25.6.0':
     dependencies:
-      undici-types: 7.18.2
+      undici-types: 7.19.2
 
   '@typescript-eslint/eslint-plugin@8.55.0(@typescript-eslint/parser@8.55.0(eslint@10.2.0)(typescript@5.9.3))(eslint@10.2.0)(typescript@5.9.3)':
     dependencies:
@@ -1246,30 +1246,30 @@ snapshots:
     dependencies:
       typescript: 5.9.3
 
-  bun-types@1.3.11:
+  bun-types@1.3.12:
     dependencies:
-      '@types/node': 25.5.2
+      '@types/node': 25.6.0
 
-  bun-webgpu-darwin-arm64@0.1.4:
+  bun-webgpu-darwin-arm64@0.1.6:
     optional: true
 
-  bun-webgpu-darwin-x64@0.1.4:
+  bun-webgpu-darwin-x64@0.1.6:
     optional: true
 
-  bun-webgpu-linux-x64@0.1.4:
+  bun-webgpu-linux-x64@0.1.6:
     optional: true
 
-  bun-webgpu-win32-x64@0.1.4:
+  bun-webgpu-win32-x64@0.1.6:
     optional: true
 
-  bun-webgpu@0.1.4:
+  bun-webgpu@0.1.5:
     dependencies:
       '@webgpu/types': 0.1.69
     optionalDependencies:
-      bun-webgpu-darwin-arm64: 0.1.4
-      bun-webgpu-darwin-x64: 0.1.4
-      bun-webgpu-linux-x64: 0.1.4
-      bun-webgpu-win32-x64: 0.1.4
+      bun-webgpu-darwin-arm64: 0.1.6
+      bun-webgpu-darwin-x64: 0.1.6
+      bun-webgpu-linux-x64: 0.1.6
+      bun-webgpu-win32-x64: 0.1.6
     optional: true
 
   cross-spawn@7.0.6:
@@ -1530,7 +1530,7 @@ snapshots:
     dependencies:
       pngjs: 6.0.0
 
-  planck@1.4.3(stage-js@1.0.1):
+  planck@1.5.0(stage-js@1.0.1):
     dependencies:
       stage-js: 1.0.1
     optional: true
@@ -1561,7 +1561,7 @@ snapshots:
 
   safe-buffer@5.2.1: {}
 
-  sax@1.4.4: {}
+  sax@1.6.0: {}
 
   semver@7.7.4: {}
 
@@ -1571,7 +1571,7 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  simple-xml-to-json@1.2.3: {}
+  simple-xml-to-json@1.2.7: {}
 
   stage-js@1.0.1:
     optional: true
@@ -1621,7 +1621,7 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  undici-types@7.18.2: {}
+  undici-types@7.19.2: {}
 
   uri-js@4.4.1:
     dependencies:
@@ -1643,7 +1643,7 @@ snapshots:
 
   xml2js@0.5.0:
     dependencies:
-      sax: 1.4.4
+      sax: 1.6.0
       xmlbuilder: 11.0.1
 
   xmlbuilder@11.0.1: {}
