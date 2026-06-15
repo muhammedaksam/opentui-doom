@@ -66,7 +66,7 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "@opentui/core": "^0.3.1"
+    "@opentui/core": "^0.4.1"
   },
   "engines": {
     "bun": ">=1.0"
