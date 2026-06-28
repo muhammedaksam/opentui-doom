@@ -58,15 +58,15 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/bun": "latest",
-    "eslint": "^10.3.0",
-    "prettier": "^3.8.3",
-    "typescript-eslint": "^8.59.2"
+    "eslint": "^10.6.0",
+    "prettier": "^3.9.1",
+    "typescript-eslint": "^8.62.0"
   },
   "peerDependencies": {
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "@opentui/core": "^0.4.1"
+    "@opentui/core": "^0.4.2"
   },
   "engines": {
     "bun": ">=1.0"
