@@ -46,7 +46,7 @@
     "dev": "bun run --watch src/index.ts",
     "dev:debug": "DOOM_DEBUG=1 bun run --watch src/index.ts",
     "build:doom": "bash ./scripts/build-doom.sh",
-    "build": "bun build src/index.ts --outdir dist --target node",
+    "build": "bun build src/index.ts --outdir dist --target node --external @opentui/core",
     "typecheck": "bun x tsc --noEmit",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
